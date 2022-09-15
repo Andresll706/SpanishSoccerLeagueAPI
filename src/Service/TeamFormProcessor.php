@@ -7,6 +7,7 @@ use App\Entity\Player;
 use App\Entity\Team;
 use App\Form\Model\PlayerDto;
 use App\Form\Model\TeamDto;
+use App\Form\Type\TeamFormType;
 use App\Repository\PlayerRepository;
 use App\Repository\TeamRepository;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -18,22 +19,18 @@ use Symfony\Component\HttpFoundation\Response;
 
 class TeamFormProcessor
 {
-
-    private TeamRepository $teamRepository;
     private PlayerRepository $playerRepository;
     private FileUploader $fileUploader;
     private FormFactoryInterface $formFactory;
     private EntityManagerInterface $entityManager;
 
     public function __construct(
-        TeamRepository $teamRepository,
         PlayerRepository $playerRepository,
         FileUploader $fileUploader,
         FormFactoryInterface $formFactory,
         EntityManagerInterface $entityManager
     )
     {
-        $this->teamRepository = $teamRepository;
         $this->playerRepository = $playerRepository;
         $this->fileUploader = $fileUploader;
         $this->formFactory = $formFactory;

@@ -3,9 +3,12 @@
 namespace App\Entity;
 
 use App\Repository\PositionRepository;
+use App\Service\FileUploader;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use DomainException;
+use League\Flysystem\FilesystemException;
 
 #[ORM\Entity(repositoryClass: PositionRepository::class)]
 class Position
@@ -27,6 +30,30 @@ class Position
     public function __construct()
     {
         $this->players = new ArrayCollection();
+    }
+
+    /**
+     * @throws FilesystemException
+     */
+    public function patch(array $data, FileUploader $fileUploader): self
+    {
+        if(array_key_exists('name', $data)) {
+            if($data['name'] === null){
+                throw new DomainException('Name cant be null');
+            }
+            $this->name = $data['name'];
+        }
+
+        if(array_key_exists('base64Image', $data)) {
+            if($data['base64Image'] !== null){
+                $filename = $fileUploader->uploadBase64File($data['base64Image']);
+                $this->image = $filename;
+            } else {
+                $this->image = null;
+            }
+        }
+
+        return $this;
     }
 
     public function getId(): ?int

@@ -44,9 +44,9 @@ class Team
             $this->name = $data['name'];
         }
 
-        if(array_key_exists('shield', $data)) {
-            if($data['shield'] !== null){
-                $filename = $fileUploader->uploadBase64File($data['shield']);
+        if(array_key_exists('base64Image', $data)) {
+            if($data['base64Image'] !== null){
+                $filename = $fileUploader->uploadBase64File($data['base64Image']);
                 $this->shield = $filename;
             } else {
                 $this->shield = null;
