@@ -8,7 +8,6 @@ use App\Entity\Team;
 class PlayerDto {
     public $name;
     public $base64Image;
-    public $team;
     private $age;
     public $position;
 
