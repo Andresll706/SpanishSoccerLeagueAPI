@@ -1,0 +1,10 @@
+App\Entity\Team:
+  attributes:
+    id:
+      groups: ['team']
+    name:
+      groups: ['team']
+    shield:
+      groups: ['team']
+    players:
+      groups: ['team']

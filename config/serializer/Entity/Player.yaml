@@ -1,0 +1,12 @@
+App\Entity\Player:
+  attributes:
+    id:
+      groups: ['team']
+    name:
+      groups: ['team']
+    age:
+      groups: ['team']
+    position:
+      groups: ['team']
+    image:
+      groups: ['team']
