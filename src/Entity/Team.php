@@ -3,9 +3,12 @@
 namespace App\Entity;
 
 use App\Repository\TeamRepository;
+use App\Service\FileUploader;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use DomainException;
+use League\Flysystem\FilesystemException;
 
 #[ORM\Entity(repositoryClass: TeamRepository::class)]
 class Team
@@ -27,6 +30,30 @@ class Team
     public function __construct()
     {
         $this->players = new ArrayCollection();
+    }
+
+    /**
+     * @throws FilesystemException
+     */
+    public function patch(array $data, FileUploader $fileUploader): self
+    {
+        if(array_key_exists('name', $data)) {
+            if($data['name'] === null){
+                throw new DomainException('Name cant be null');
+            }
+            $this->name = $data['name'];
+        }
+
+        if(array_key_exists('shield', $data)) {
+            if($data['shield'] !== null){
+                $filename = $fileUploader->uploadBase64File($data['shield']);
+                $this->shield = $filename;
+            } else {
+                $this->shield = null;
+            }
+        }
+
+        return $this;
     }
 
     public function getId(): ?int
@@ -78,11 +105,8 @@ class Team
 
     public function removePlayer(Player $player): self
     {
-        if ($this->players->removeElement($player)) {
-            // set the owning side to null (unless already changed)
-            if ($player->getTeam() === $this) {
-                $player->setTeam(null);
-            }
+        if ($this->players->removeElement($player) && $player->getTeam() === $this) {
+            $player->setTeam(null);
         }
 
         return $this;
