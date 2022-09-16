@@ -1,4 +1,4 @@
-App\Form\Model\PlyerDto:
+App\Form\Model\PlayerDto:
   properties:
     name:
       - NotBlank: ~
@@ -13,3 +13,5 @@ App\Form\Model\PlyerDto:
           min: 1
           max: 180
           notInRangeMessage: 'The age must be between {{ min }} years and {{ max }} years'
+    teamId:
+      - NotBlank: ~

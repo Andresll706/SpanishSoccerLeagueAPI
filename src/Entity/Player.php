@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\PlayerRepository;
 use Doctrine\ORM\Mapping as ORM;
+use DomainException;
 
 #[ORM\Entity(repositoryClass: PlayerRepository::class)]
 class Player
@@ -29,6 +30,8 @@ class Player
     #[ORM\ManyToOne(inversedBy: 'players')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Position $position = null;
+
+
 
     public function getId(): ?int
     {

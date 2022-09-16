@@ -6,6 +6,7 @@ use App\Entity\Position;
 use App\Entity\Team;
 
 class PositionDto {
+    public $id;
     public $name;
     public $base64Image;
 

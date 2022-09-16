@@ -10,20 +10,24 @@ use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\View\View;
+use JMS\Serializer\SerializerBuilder;
 use League\Flysystem\FilesystemException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class PositionController extends AbstractFOSRestController
 {
+    const POSITION_NOT_FOUND = 'Position not found';
+    const POSITION_DELETED = 'Position deleted';
+
     /**
      *
      * @Rest\Get(path="/api/positions", name="get_positions")
      * @Rest\View(serializerGroups={"team"},serializerEnableMaxDepthChecks=true)
      */
-    public function getAll(PositionRepository $repository): array
+    public function getAll(PositionRepository $repository): string
     {
-        return $repository->findAll();
+        return $this->serialize($repository->findAll());
     }
 
     /**
@@ -31,15 +35,15 @@ class PositionController extends AbstractFOSRestController
      * @Rest\Get(path="/api/position/{id}", requirements={"id"="\d+"}, name="get_position")
      * @Rest\View(serializerGroups={"team"},serializerEnableMaxDepthChecks=true)
      */
-    public function get(PositionRepository $repository, int $id): View | Position
+    public function get(PositionRepository $repository, int $id): View | string
     {
         $position = $repository->find($id);
 
         if(!$position) {
-            return View::create('Position not found', Response::HTTP_BAD_REQUEST);
+            return View::create(self::POSITION_NOT_FOUND, Response::HTTP_BAD_REQUEST);
         }
 
-        return $position;
+        return $this->serialize($position);
     }
 
 
@@ -56,7 +60,7 @@ class PositionController extends AbstractFOSRestController
         [$position, $error] = ($positionFormProcessor)($position, $request);
 
         $statusCode = $position ? Response::HTTP_CREATED : Response::HTTP_BAD_REQUEST;
-        $data = $position ?? $error;
+        $data = $position ? $this->serialize($position) : $error;
         return View::create($data, $statusCode);
     }
 
@@ -71,13 +75,13 @@ class PositionController extends AbstractFOSRestController
         $positionEntity = $positionRepository->find($id);
 
         if(!$positionEntity) {
-            return View::create('Position not found', Response::HTTP_BAD_REQUEST);
+            return View::create(self::POSITION_NOT_FOUND, Response::HTTP_BAD_REQUEST);
         }
 
         $data = json_decode($request->getContent(), true);
         $position =  $positionEntity->patch($data, $fileUploader);
 
-        return View::create($position, Response::HTTP_OK);
+        return View::create($this->serialize($position), Response::HTTP_OK);
     }
 
 
@@ -95,12 +99,18 @@ class PositionController extends AbstractFOSRestController
         $position = $positionRepository->find($id);
 
         if(!$position) {
-            return View::create('Book not found', Response::HTTP_BAD_REQUEST);
+            return View::create(self::POSITION_NOT_FOUND, Response::HTTP_BAD_REQUEST);
         }
 
         $entityManager->remove($position);
         $entityManager->flush();
 
-        return View::create('Book deleted', Response::HTTP_NO_CONTENT);
+        return View::create(self::POSITION_DELETED, Response::HTTP_NO_CONTENT);
+    }
+
+    private function serialize($data): string
+    {
+        $serializer = SerializerBuilder::create()->build();
+        return $serializer->serialize($data, 'json');
     }
 }

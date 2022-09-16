@@ -14,9 +14,11 @@ class PlayerFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+            ->add('id', TextType::class)
             ->add('name', TextType::class)
             ->add('age', TextType::class)
             ->add('base64Image', TextType::class)
+            ->add('teamId', TextType::class)
             ->add('position', CollectionType::class, [
                 'allow_add' => true,
                 'allow_delete' => true,

@@ -13,6 +13,7 @@ class PositionFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+            ->add('id', TextType::class)
             ->add('name', TextType::class)
             ->add('base64Image', TextType::class);
 
