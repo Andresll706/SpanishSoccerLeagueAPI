@@ -5,25 +5,30 @@ namespace App\Controller\Api;
 use App\Entity\Team;
 use App\Repository\TeamRepository;
 use App\Service\FileUploader;
+use App\Service\Team\UpdateTeam;
 use App\Service\TeamFormProcessor;
 use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\View\View;
+use JMS\Serializer\SerializerBuilder;
 use League\Flysystem\FilesystemException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class TeamController extends AbstractFOSRestController
 {
+    const TEAM_NOT_FOUND = 'Team not found';
+    const TEAM_DELETED = 'Team deleted';
+
     /**
      *
      * @Rest\Get(path="/api/teams", name="get_teams")
      * @Rest\View(serializerGroups={"team"},serializerEnableMaxDepthChecks=true)
      */
-    public function getAll(TeamRepository $repository): array
+    public function getAll(TeamRepository $repository): string
     {
-        return $repository->findAll();
+        return $this->serialize($repository->findAll());
     }
 
     /**
@@ -31,15 +36,15 @@ class TeamController extends AbstractFOSRestController
      * @Rest\Get(path="/api/team/{id}", requirements={"id"="\d+"}, name="get_team")
      * @Rest\View(serializerGroups={"team"},serializerEnableMaxDepthChecks=true)
      */
-    public function get(TeamRepository $repository, int $id): View | Team
+    public function get(TeamRepository $repository, int $id): View | string
     {
         $team = $repository->find($id);
 
         if(!$team) {
-            return View::create('Team not found', Response::HTTP_BAD_REQUEST);
+            return View::create(self::TEAM_NOT_FOUND, Response::HTTP_BAD_REQUEST);
         }
 
-        return $team;
+        return $this->serialize($team);
     }
 
     /**
@@ -55,7 +60,7 @@ class TeamController extends AbstractFOSRestController
         [$team, $error] = ($teamFormProcessor)($team, $request);
 
         $statusCode = $team ? Response::HTTP_CREATED : Response::HTTP_BAD_REQUEST;
-        $data = $team ?? $error;
+        $data = $team ? $this->serialize($team) : $error;
         return View::create($data, $statusCode);
     }
 
@@ -65,16 +70,18 @@ class TeamController extends AbstractFOSRestController
      * @Rest\View(serializerGroups={"team"},serializerEnableMaxDepthChecks=true)
      * @throws FilesystemException
      */
-    public function patch(int $id, TeamRepository $teamRepository, Request $request, FileUploader $fileUploader): View
+    public function patch(
+        int $id,
+        TeamRepository $teamRepository,
+        Request $request,
+        UpdateTeam $updateTeam): View
     {
         $team = $teamRepository->find($id);
 
         $data = json_decode($request->getContent(), true);
-        [$team, $error] =  $team->patch($data, $fileUploader);
+        $team = ($updateTeam)($data, $team);
 
-        $statusCode = $team ? Response::HTTP_CREATED : Response::HTTP_BAD_REQUEST;
-        $data = $team ?? $error;
-        return View::create($data, $statusCode);
+        return View::create($this->serialize($team), Response::HTTP_OK);
     }
 
 
@@ -93,12 +100,18 @@ class TeamController extends AbstractFOSRestController
         $team = $teamRepository->find($id);
 
         if(!$team) {
-            return View::create('Book not found', Response::HTTP_BAD_REQUEST);
+            return View::create(self::TEAM_NOT_FOUND, Response::HTTP_BAD_REQUEST);
         }
 
         $entityManager->remove($team);
         $entityManager->flush();
 
-        return View::create('Book deleted', Response::HTTP_NO_CONTENT);
+        return View::create(self::TEAM_DELETED, Response::HTTP_NO_CONTENT);
+    }
+
+    private function serialize($data): string
+    {
+        $serializer = SerializerBuilder::create()->build();
+        return $serializer->serialize($data, 'json');
     }
 }

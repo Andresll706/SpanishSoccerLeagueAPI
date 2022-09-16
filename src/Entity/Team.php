@@ -32,30 +32,6 @@ class Team
         $this->players = new ArrayCollection();
     }
 
-    /**
-     * @throws FilesystemException
-     */
-    public function patch(array $data, FileUploader $fileUploader): self
-    {
-        if(array_key_exists('name', $data)) {
-            if($data['name'] === null){
-                throw new DomainException('Name cant be null');
-            }
-            $this->name = $data['name'];
-        }
-
-        if(array_key_exists('base64Image', $data)) {
-            if($data['base64Image'] !== null){
-                $filename = $fileUploader->uploadBase64File($data['base64Image']);
-                $this->shield = $filename;
-            } else {
-                $this->shield = null;
-            }
-        }
-
-        return $this;
-    }
-
     public function getId(): ?int
     {
         return $this->id;

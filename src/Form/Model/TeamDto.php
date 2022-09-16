@@ -5,9 +5,9 @@ namespace App\Form\Model;
 use App\Entity\Team;
 
 class TeamDto {
-    public $name;
-    public $base64Image;
-    public $players;
+    public string | null $name;
+    public string | null $base64Image;
+    public array | null $players;
 
     public function __construct()
     {

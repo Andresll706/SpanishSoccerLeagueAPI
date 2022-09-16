@@ -28,7 +28,7 @@ class Player
     private ?Team $team = null;
 
     #[ORM\ManyToOne(inversedBy: 'players')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?Position $position = null;
 
 

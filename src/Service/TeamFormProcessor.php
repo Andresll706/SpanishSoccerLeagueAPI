@@ -4,12 +4,15 @@ namespace App\Service;
 
 
 use App\Entity\Player;
+use App\Entity\Position;
 use App\Entity\Team;
 use App\Form\Model\PlayerDto;
 use App\Form\Model\TeamDto;
 use App\Form\Type\TeamFormType;
 use App\Repository\PlayerRepository;
+use App\Repository\PositionRepository;
 use App\Repository\TeamRepository;
+use App\Service\Player\UpdatePlayer;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use League\Flysystem\FilesystemException;
@@ -23,18 +26,21 @@ class TeamFormProcessor
     private FileUploader $fileUploader;
     private FormFactoryInterface $formFactory;
     private EntityManagerInterface $entityManager;
+    private PositionRepository $positionRepository;
 
     public function __construct(
         PlayerRepository $playerRepository,
         FileUploader $fileUploader,
         FormFactoryInterface $formFactory,
-        EntityManagerInterface $entityManager
+        EntityManagerInterface $entityManager,
+        PositionRepository $positionRepository
     )
     {
         $this->playerRepository = $playerRepository;
         $this->fileUploader = $fileUploader;
         $this->formFactory = $formFactory;
         $this->entityManager = $entityManager;
+        $this->positionRepository = $positionRepository;
     }
 
     /**
@@ -44,13 +50,6 @@ class TeamFormProcessor
     {
         $teamDto = TeamDto::createFromTeam($team);
 
-        $actualPlayersDto = new ArrayCollection();
-        foreach ($team->getPlayers() as $player){
-            $playerDto = PlayerDto::createFromPlayer($player);
-            $teamDto->players[] = $playerDto;
-            $actualPlayersDto->add($playerDto);
-        }
-
         $form = $this->formFactory->create(TeamFormType::class, $teamDto);
         $form->handleRequest($request);
         if(!$form->isSubmitted()){
@@ -58,27 +57,47 @@ class TeamFormProcessor
         }
 
         if($form->isValid()){
-            foreach ($actualPlayersDto as $originalPlayerDto){
-                if(!in_array($originalPlayerDto, $teamDto->players)){
-                    $player = $this->playerRepository->find($originalPlayerDto->id);
-                    $team->removePlayer($player);
-                }
-            }
-
+            /* @var $newPlayer PlayerDto */
             foreach ($teamDto->players as $newPlayer) {
-                if(!$actualPlayersDto->contains($newPlayer)){
-                    $player = $this->playerRepository->find($newPlayer->id ?? 0);
-                    if(!$player){
-                        $player = new Player();
-                        $player->setName($newPlayer->name);
-                        $this->entityManager->persist($player);
+                $player = $this->playerRepository->find($newPlayer->id ?? 0);
+                if(!$player){
+                    $player = new Player();
+                    $player->setName($newPlayer->name);
+                    $player->setAge($newPlayer->age);
+                    $player->setTeam($team);
+                    $base64ImagePlayer = $newPlayer->base64Image ?? null;
+                    if($base64ImagePlayer) {
+                        $filenamePlayer = $this->fileUploader->uploadBase64File($newPlayer->base64Image);
+                        $player->setImage($filenamePlayer);
                     }
-                    $team->addPlayer($player);
+                    /* @var $positions array */
+                    $positions = $newPlayer->position;
+
+                    if(!empty($positions)) {
+                        $position = $this->positionRepository->find($positions[0]->id ?? 0);
+                        if ($position === null) {
+                            $position = new Position();
+                            $position->setName($positions[0]->name);
+                            if($positions[0]->base64Image) {
+                                $filename = $this->fileUploader->uploadBase64File($positions[0]->base64Image);
+                                $position->setImage($filename);
+                            }
+                            $this->entityManager->persist($position);
+                        }
+                        $player->setPosition($position);
+                    } else {
+                        $player->setPosition(null);
+                    }
+                    $this->entityManager->persist($player);
+                }
+                if($player->getTeam() != null) {
+                    $player->setTeam($team);
                 }
             }
 
             $team->setName($teamDto->name);
-            if($teamDto->base64Image) {
+            $base64ImageTeam = $teamDto->base64Image ?? null;
+            if($base64ImageTeam) {
                 $filename = $this->fileUploader->uploadBase64File($teamDto->base64Image);
                 $team->setShield($filename);
             }
