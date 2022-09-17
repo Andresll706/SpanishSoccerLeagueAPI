@@ -1,0 +1,12 @@
+.wrapper {
+  height: calc(100vh - 20px);
+  position: relative;
+}
+.inner {
+  padding: 12px;
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  height: max-content;
+  width: max-content;
+}

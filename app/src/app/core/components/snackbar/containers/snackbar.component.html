@@ -1,0 +1,12 @@
+<div fxLayout="column" fxLayoutAlign="space-around stretch" fxLayoutGap="5px">
+  <div *ngFor="let notification of (notifications).slice().reverse()">
+    <div [fxShow]="notification.show" fxLayout="row"
+         fxLayoutAlign="space-between center"
+         class="notification" [ngClass]="notification.style">
+      <p [innerHTML]="notification.message"></p>
+      <button mat-button (click)="hide(notification)">
+        <mat-icon role="img" aria-hidden="true">cancel</mat-icon>
+      </button>
+    </div>
+  </div>
+</div>

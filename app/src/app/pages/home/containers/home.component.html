@@ -1,0 +1,143 @@
+<div class="container" style="margin-top:4%;">
+  <div class="row justify-content-center" style="padding: 0;">
+    <carousel style="padding: 0;"></carousel>
+  </div>
+  <div class="row justify-content-center">
+    <div class="card bg-light" style="max-width: 50rem; margin: 20px auto;">
+      <div class="card-body">
+        <h1>{{'home.form.title' | translate}}</h1>
+        <p>{{'home.form.subTitle' | translate}}</p>
+        <form [formGroup]="form" class="justify-content-center form">
+          <p>
+            <mat-form-field appearance="outline">
+              <mat-label>{{'home.form.initialDate' | translate}}</mat-label>
+              <input matInput formControlName="initialDate"  [matDatepicker]="initialDate">
+              <mat-datepicker-toggle matSuffix [for]="initialDate"></mat-datepicker-toggle>
+              <mat-datepicker #initialDate></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+            <mat-label>{{'home.form.endDate' | translate}}</mat-label>
+            <input matInput formControlName="endDate"  [matDatepicker]="endDate">
+            <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+            <mat-datepicker #endDate></mat-datepicker>
+            </mat-form-field>
+          </p>
+          <button class="btn btn-proyecto" mat-raised-button color="primary" (click)="find()">
+            <span class="mat-body-2">{{'home.form.search' | translate}}</span>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-12 col-sm-12 col-md-4 col-lg-3" *ngFor="let linkMenu of linksMenus">
+      <card-menu [linkMenu]="linkMenu" [link]="linkMenu.linkPage" [image]="linkMenu.image"></card-menu>
+    </div>
+  </div>
+  <div class="row m-5 ">
+    <div class="col-12 justify-content-center" style="text-align: center">
+      <h1>{{'home.section.title' | translate}}</h1>
+    </div>
+    <div class="col m-5" >
+      <mat-grid-list cols="4" rowHeight = "200px">
+        <mat-grid-tile [colspan] = "3"
+                       [rowspan] = "1">
+          <mat-grid-tile-footer style="background: none;"><strong>{{'home.section.title1' | translate}}</strong></mat-grid-tile-footer>
+          <img class="card-img-top img-card" src="assets/images/sailing-boat.jpg" alt="Card image cap">
+        </mat-grid-tile>
+        <mat-grid-tile [colspan] = "1"
+                       [rowspan] = "2">
+          <img class="card-img-top img-card" src="assets/images/water.jpg" alt="Card image cap">
+          <mat-grid-tile-footer style="background: none;"><strong>{{'home.section.title2' | translate}}</strong></mat-grid-tile-footer>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan] = "1"
+                       [rowspan] = "1">
+          <mat-grid-tile-footer style="background: none;"><strong>{{'home.section.title3' | translate}}</strong></mat-grid-tile-footer>
+          <img class="card-img-top img-card" src="assets/images/sea.jpg" alt="Card image cap">
+        </mat-grid-tile>
+        <mat-grid-tile [colspan] = "2"
+                       [rowspan] = "1">
+          <mat-grid-tile-footer style="background: none;"><strong>{{'home.section.title4' | translate}}</strong></mat-grid-tile-footer>
+          <img class="card-img-top img-card" src="assets/images/sport.jpg" alt="Card image cap">
+        </mat-grid-tile>
+      </mat-grid-list>
+    </div>
+  </div>
+
+
+  <div class="row m-5 p-5 justify-content-center">
+    <div class="col-12 col-sm-12 col-md-6 col-lg-4"  *ngFor="let comment of comments">
+      <comment [comment]="comment"></comment>
+    </div>
+  </div>
+
+  <div class="row m-5" style="border-top-color: #555555; border-top-style:solid; border-top-width: 1px;">
+    <div class="col-12 col-sm-12 col-md-6 p-5">
+      <div style="text-align: center;">
+        <h1>{{'home.aboutUs.owner.title' | translate}}</h1>
+      </div>
+      <ul>
+        <li class="d-flex">
+          <mat-icon class="m-3" aria-hidden="false" aria-label="Example home icon" style="color: #04AA6D">star_rate</mat-icon>
+          <p>
+            {{'home.aboutUs.owner.paragraph1' | translate}}
+          </p>
+        </li>
+        <li class="d-flex">
+          <mat-icon class="m-3" aria-hidden="false" aria-label="Example home icon" style="color: #04AA6D">star_rate</mat-icon>
+          <p>
+            {{'home.aboutUs.owner.paragraph2' | translate}}
+          </p>
+        </li>
+        <li class="d-flex">
+          <mat-icon class="m-3" aria-hidden="false" aria-label="Example home icon" style="color: #04AA6D">star_rate</mat-icon>
+          <p>
+            {{'home.aboutUs.owner.paragraph3' | translate}}
+          </p>
+        </li>
+      </ul>
+      <div style="text-align: center;">
+        <button class="btn btn-proyecto" mat-raised-button color="primary" (click)="rent()">
+          <span class="mat-body-2">{{'home.aboutUs.owner.button' | translate}}</span>
+        </button>
+      </div>
+    </div>
+    <div class="col-12 col-sm-12 col-md-6 p-5">
+      <div style="text-align: center;">
+        <h1>{{'home.aboutUs.lessee.title' | translate}}</h1>
+      </div>
+      <ul>
+        <li class="d-flex">
+          <mat-icon class="m-3" aria-hidden="false" aria-label="Example home icon" style="color: #04AA6D">star_rate</mat-icon>
+          <p>
+            {{'home.aboutUs.lessee.paragraph1' | translate}}
+          </p>
+        </li>
+        <li class="d-flex">
+          <mat-icon class="m-3" aria-hidden="false" aria-label="Example home icon" style="color: #04AA6D">star_rate</mat-icon>
+          <p>
+            {{'home.aboutUs.lessee.paragraph2' | translate}}
+          </p>
+        </li>
+        <li class="d-flex">
+          <mat-icon class="m-3" aria-hidden="false" aria-label="Example home icon" style="color: #04AA6D">star_rate</mat-icon>
+          <p>
+            {{'home.aboutUs.lessee.paragraph3' | translate}}
+          </p>
+        </li>
+      </ul>
+      <div style="text-align: center;">
+        <button class="btn btn-proyecto" mat-raised-button color="primary" (click)="boats()">
+          <span class="mat-body-2">{{'home.aboutUs.lessee.button' | translate}}</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="row justify-content-center m-5">
+    <div class="col" style="text-align: center;">
+       <h1>{{'home.insurance.title' | translate}}</h1>
+        <img class="card-img-top img-card" src="https://www.allianz-partners.es/content/dam/onemarketing/awp/allianz-partners-es/Allianz_Partners_Spain.png" alt="Card image cap" style="max-height: 250px; max-width: 500px;">
+    </div>
+  </div>
+</div>

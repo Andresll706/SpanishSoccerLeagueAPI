@@ -1,0 +1,80 @@
+<loading [loading]="loading"></loading>
+<div class="container" style="margin-top:100px; padding-bottom: 70px;" *ngIf="!loading">
+  <div class="row">
+    <div class="col-md">
+      <img src="{{image | sinfoto}}" alt="boat" style="width:90%;">
+    </div>
+    <div class="col-md">
+      <p class="h2">{{boat.name}} / {{boat.registration}}</p>
+      <hr>
+      <p>
+        {{boat.description}}
+      </p>
+      <hr>
+      <div class="container">
+        <div class="row">
+          <div class="col-md" style="text-align: center;">
+            <img alt='Capacity icon' src="assets/capacity.png" width="35" style="margin-bottom:10px;">
+            <p>{{boat.capacity}} {{'boats.people' | translate}}</p>
+          </div>
+          <div class="col-md" style="text-align: center;">
+            <img alt='length icon' src="assets/boat-length.png" width="35" style="margin-bottom:10px;">
+            <p>{{boat.length}} m {{'boats.length' | translate}}</p>
+          </div>
+          <div class="col-md" style="text-align: center;">
+            <img alt='width icon' src="assets/boat-width.png" width="35" style="margin-bottom:10px;">
+            <p>{{boat.sleeve}} m {{'boats.beam' | translate}}</p>
+          </div>
+          <div class="col-md" style="text-align: center;">
+            <img alt="power icon" src="assets/boat-power.png" width="35" style="margin-bottom:10px;">
+            <p>{{boat.motorPower}} {{'boat.power' | translate}}</p>
+          </div>
+          <div class="col-md" style="text-align: center;">
+            <img alt="price icon" src="assets/price-tag.png" width="35" style="margin-bottom:10px;">
+            <p>{{boat.dayBasePrice}}€/{{'boat.day' | translate}} {{boat.hourBasePrice}}€/{{'boat.hour' | translate}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row" style="margin-top:20px;">
+    <p class="h4">{{'boat.extras' | translate}}</p>
+    <hr>
+    <div class="col-md">
+      <div class="container">
+
+        <div class="row">
+          <div class="col-md" style="text-align: center;">
+            <img alt="float icon" src="assets/float-activity.png" width="35" style="margin-bottom:10px;">
+            <p>{{'boat.float' | translate}}</p>
+          </div>
+          <div class="col-md" style="text-align: center;">
+            <img alt="fishing-rod icon" src="assets/fishing-activity.png" width="35" style="margin-bottom:10px;">
+            <p>{{'boat.fishing' | translate}}</p>
+          </div>
+          <div class="col-md" style="text-align: center;">
+            <img alt="umbrella icon" src="assets/bimini-top.png" width="35" style="margin-bottom:10px;">
+            <p>{{'boat.bimini' | translate}}</p>
+          </div>
+          <div class="col-md" style="text-align: center;">
+            <img alt="ice icon" src="assets/refrigerator.png" width="35" style="margin-bottom:10px;">
+            <p>{{'boat.refrigerator' | translate}}</p>
+          </div>
+          <div class="col-md" style="text-align: center;">
+            <img alt="table icon" src="assets/side-table.png" width="35" style="margin-bottom:10px;">
+            <p>{{'boat.sideTable' | translate}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr>
+    <div class="row" style="margin-top:25px;">
+      <div class="col-md" style="text-align: center;">
+        <button class="btn btn-proyecto" style="margin-left: auto; margin-right: auto" (click)="booking()">
+          {{'boat.book' | translate}}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
