@@ -12,13 +12,4 @@ class PlayerDto {
     public string | null $base64Image;
     public array | null $position;
     public int | null $teamId;
-
-    public static function createFromPlayer(Player $player): self
-    {
-        $dto = new self();
-        $dto->name = $player->getName();
-        $dto->age = $player->getAge();
-        $dto->base64Image = null;
-        return $dto;
-    }
 }

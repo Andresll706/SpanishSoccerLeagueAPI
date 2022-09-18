@@ -1,19 +1,19 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {FooterComponent} from "./containers/footer.component";
-import {SharedModule} from "../../../shared/shared.module";
+import {CommentComponent} from "./containers/comment.component";
+import { SharedModule } from "../shared/shared.module";
 
 @NgModule({
   declarations: [
-    FooterComponent
+    CommentComponent
   ],
     imports: [
         CommonModule,
         SharedModule
     ],
   exports: [
-    FooterComponent
+    CommentComponent
   ]
 })
-export class FooterModule {
+export class CommentModule {
 }

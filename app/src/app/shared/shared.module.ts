@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import {SinfotoPipe} from "./pipes/sinfoto.pipe";
+import { SinfotoPipe } from '../sin-foto.pipe';
 import {TranslateModule} from "@ngx-translate/core";
 import { MaterialModule } from "../core/material/material.module";
 

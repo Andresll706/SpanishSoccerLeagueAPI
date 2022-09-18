@@ -2,14 +2,13 @@
 
 namespace App\Tests\Controller\Api;
 
-
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class PositionControllerTest extends WebTestCase
+class TeamControllerTest extends WebTestCase
 {
-    const API_URL_POST = '/api/position';
+    const API_URL_POST = '/api/team';
     const APPLICATION_JSON = 'application/json';
-    const POSITION_NOT_FOUND = 'Position not found';
+    const TEAM_NOT_FOUND = 'Team not found';
 
 
     public function testGetAllSuccess()
@@ -17,7 +16,7 @@ class PositionControllerTest extends WebTestCase
         $client = static::createClient();
         $client->request(
             'GET',
-            '/api/positions');
+            '/api/teams');
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
     }
@@ -27,21 +26,20 @@ class PositionControllerTest extends WebTestCase
         $client = static::createClient();
         $client->request(
             'GET',
-            '/api/position/1');
+            '/api/team/1');
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
     }
 
-
     public function testGetOneFailNotFound()
     {
-       $client = static::createClient();
+        $client = static::createClient();
         $client->request(
             'GET',
-            '/api/position/1');
+            '/api/team/1');
 
         $this->assertEquals(400, $client->getResponse()->getStatusCode());
-        $this->assertEquals(self::POSITION_NOT_FOUND, $client->getRequest()->getContent());
+        $this->assertEquals(self::TEAM_NOT_FOUND, $client->getRequest()->getContent());
     }
 
     public function testPostInvalidData()
@@ -81,34 +79,33 @@ class PositionControllerTest extends WebTestCase
             [],
             [],
             ['CONTENT_TYPE' => self::APPLICATION_JSON],
-            '{"name": "PositionTest", "base64Image": "base64ImageTest"}');
+            '{
+                    "name": "Andrés"
+                    }');
 
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertEquals(201, $client->getResponse()->getStatusCode());
     }
-
-
 
     public function testDeleteSuccess()
     {
         $client = static::createClient();
         $client->request(
             'DELETE',
-            '/api/position/2');
+            '/api/team/2');
 
         $this->assertEquals(204, $client->getResponse()->getStatusCode());
-        $this->assertEquals('Position deleted', $client->getResponse()->getContent());
+        $this->assertEquals('Team deleted', $client->getResponse()->getContent());
     }
-
 
     public function testDeleteFail()
     {
-       $client = static::createClient();
+        $client = static::createClient();
         $client->request(
             'DELETE',
-            '/api/position/2');
+            '/api/team/2');
 
         $this->assertEquals(400, $client->getResponse()->getStatusCode());
-        $this->assertEquals('Position not found', $client->getResponse()->getContent());
+        $this->assertEquals('Team not found', $client->getResponse()->getContent());
     }
 
     public function testPatchSuccess()
@@ -116,11 +113,11 @@ class PositionControllerTest extends WebTestCase
         $client = static::createClient();
         $client->request(
             'PATCH',
-            '/api/position/3',
+            '/api/team/3',
             [],
             [],
             ['CONTENT_TYPE' => self::APPLICATION_JSON],
-        '{name:"newName"}');
+            '{name:"newName"}');
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
     }
@@ -130,7 +127,7 @@ class PositionControllerTest extends WebTestCase
         $client = static::createClient();
         $client->request(
             'PATCH',
-            '/api/position/3',
+            '/api/team/3',
             [],
             [],
             ['CONTENT_TYPE' => self::APPLICATION_JSON],

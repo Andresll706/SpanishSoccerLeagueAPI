@@ -5,17 +5,13 @@ namespace App\Service;
 use App\Entity\Player;
 use App\Entity\Position;
 use App\Form\Model\PlayerDto;
-use App\Form\Model\PositionDto;
 use App\Form\Type\PlayerFormType;
-use App\Form\Type\PositionFormType;
 use App\Repository\PositionRepository;
 use App\Repository\TeamRepository;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use League\Flysystem\FilesystemException;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 class PlayerFormProcessor
 {
@@ -44,7 +40,7 @@ class PlayerFormProcessor
      */
     public function __invoke(Player $player, Request $request): array
     {
-        $playerDto = PlayerDto::createFromPlayer($player);
+        $playerDto = new PlayerDto();
 
         $form = $this->formFactory->create(PlayerFormType::class, $playerDto);
         $form->handleRequest($request);

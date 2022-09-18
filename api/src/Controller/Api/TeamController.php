@@ -78,6 +78,10 @@ class TeamController extends AbstractFOSRestController
     {
         $team = $teamRepository->find($id);
 
+        if(!$team) {
+            return View::create(self::TEAM_NOT_FOUND, Response::HTTP_BAD_REQUEST);
+        }
+
         $data = json_decode($request->getContent(), true);
         $team = ($updateTeam)($data, $team);
 

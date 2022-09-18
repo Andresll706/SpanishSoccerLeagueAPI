@@ -28,7 +28,8 @@ class PlayerController extends AbstractFOSRestController
      */
     public function getAll(PlayerRepository $repository): string
     {
-        return $this->serialize($repository->findAll());
+        $players = $repository->findAll();
+        return $this->serialize($players);
     }
 
     /**
