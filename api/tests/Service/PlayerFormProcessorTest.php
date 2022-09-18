@@ -81,14 +81,66 @@ class PlayerFormProcessorTest  extends TestCase {
             ->method('isSubmitted')
             ->willReturn(true);
 
-
+        $formInterfaceMock
+            ->expects(self::exactly(1))
+            ->method('isValid')
+            ->willReturn(false);
 
         $playerFormProcessor = new PlayerFormProcessor($fileUploaderMock, $formFactoryInterfaceMock, $entityManagerMock, $positionRepositoryMock, $teamRepositoryMock);
 
         [$playerReturn, $error] = ($playerFormProcessor)($player, $requestMock);
 
-        $this->assertEquals(null, $playerReturn);
-        $this->assertEquals('Form is not submitted',$error);
+        $this->assertNull($playerReturn);
+        $this->assertNotNull($error);
+        $this->assertEquals($formInterfaceMock, $error);
+    }
+
+
+    public function testShouldReturnErroWhenTeamNotFound(){
+        $player = new Player();
+        $requestMock = $this->newRequestMock();
+
+        $fileUploaderMock = $this->newFileUploaderMock();
+        $formFactoryInterfaceMock = $this->newFormFactoryInterfaceMock();
+        $entityManagerMock = $this->newEntityManagerInterfaceMock();
+        $positionRepositoryMock = $this->newPositionRepositoryMock();
+        $teamRepositoryMock = $this->newTeamRepositoryMock();
+        $formInterfaceMock = $this->newFormInterfaceMock();
+
+        $formFactoryInterfaceMock
+            ->expects(self::exactly(1))
+            ->method('create')
+            ->with(PlayerFormType::class, self::anything())
+            ->willReturn($formInterfaceMock);
+
+        $formInterfaceMock
+            ->expects(self::exactly(1))
+            ->method('handleRequest')
+            ->with($requestMock);
+
+        $formInterfaceMock
+            ->expects(self::exactly(1))
+            ->method('isSubmitted')
+            ->willReturn(true);
+
+        $formInterfaceMock
+            ->expects(self::exactly(1))
+            ->method('isValid')
+            ->willReturn(false);
+
+        $teamRepositoryMock
+            ->expects(self::exactly(1))
+            ->method('find')
+            ->with(self::anything())
+            ->willReturn(null);
+
+        $playerFormProcessor = new PlayerFormProcessor($fileUploaderMock, $formFactoryInterfaceMock, $entityManagerMock, $positionRepositoryMock, $teamRepositoryMock);
+
+        [$playerReturn, $error] = ($playerFormProcessor)($player, $requestMock);
+
+        $this->assertNull($playerReturn);
+        $this->assertNotNull($error);
+        $this->assertEquals('Team not found', $error);
     }
 
     /**
