@@ -42,8 +42,6 @@ N
 api/config/packages/cache.yaml,8\d\8d10aa05ffc15bcff0376cd48a81538a34b2f401
 P
  api/config/routes/framework.yaml,1\b\1be2d76af8cde92ab84b45ac632040de7ff1e24e
-N
-app/src/app/app.component.scss,5\8\58579d79dc313593a7e7779953007dced86ea422
 P
  api/config/packages/routing.yaml,f\d\fd284c4bad679333e300e1b84e531113f30ace0f
 M
@@ -90,8 +88,6 @@ A
 +api/config/packages/dev/jms_serializer.yaml,a\9\a9fd9045d9203b0e220b5feb6c65ff28f5d70952
 _
 /api/config/packages/sensio_framework_extra.yaml,1\e\1ec28b30c54b353e409ec0b98e8b2e7c465dfe6f
-8
-api/.env,2\7\279086246982fa02d340b695295d94f90b02dc03
 \
 ,api/config/packages/prod/jms_serializer.yaml,6\1\61c6a89f6b712cb169f4cc5dc436e80953579195
 @
@@ -102,8 +98,6 @@ _
 app/.gitignore,5\1\51e1c5d383dfaa35e0e7e5873a0a99355a86880f
 Q
 !app/src/app/app.component.spec.ts,7\a\7a59f3955ac25337ce976c87f2ee31747232ab2b
-L
-app/src/app/app.component.ts,a\9\a9db20e99038c01b12fff956894268685d1150c6
 G
 api/tests/bootstrap.php,2\2\2256031698abfdbf5347a339be466eafe2dc8c6a
 F
@@ -156,14 +150,8 @@ g
 7app/src/app/pages/boats/containers/boats.component.scss,c\0\c03b817b0a65c0fe3a7649463804609b7586d3ba
 w
 Gapp/src/app/core/components/snackbar/containers/snackbar.component.scss,5\3\532dc871eed5844ecbd66cdacba1775082a915c1
-s
-Capp/src/app/core/components/footer/containers/footer.component.scss,f\c\fcb1d57bba2fd007fe01e398dcf139b3c22f23ee
-s
-Capp/src/app/core/components/header/containers/header.component.scss,1\d\1db7afe6ffe503d9f1841f00cb4bcaf0fa7837e0
 u
 Eapp/src/app/core/components/loading/containers/loading.component.scss,c\6\c6e926dacb50114c788f0a45941935829972bcff
-e
-5app/src/app/pages/home/containers/home.component.scss,1\4\14e659c77f8d3d01de27af79744902c65a9b44cf
 o
 ?app/src/app/pages/boat-page/containers/boat-page.component.scss,2\4\245414559c21817eec32a14da04513a7b44bed6d
 o
@@ -192,8 +180,6 @@ c
 3app/src/app/core/components/header/header.module.ts,7\3\73da574c6e6bcb9f94ad82a7b9de7dacd7603a75
 h
 8app/src/app/pages/home/containers/home.component.spec.ts,3\0\3065f313db455b867f4d5900cf7a0bdf178d146d
-U
-%app/src/app/pages/home/home.module.ts,2\6\260529ceee0a7b8d2eebca1831659d6b977008ba
 ]
 -app/src/app/pages/home/home-routing.module.ts,d\7\d7d0e788f888476364cd4361ae1db591775c5b76
 u
@@ -202,8 +188,6 @@ s
 Capp/src/app/core/components/loading/containers/loading.component.ts,2\5\255e115c868a07f509ad6a8e9da12f9fcf295a19
 e
 5app/src/app/core/components/loading/loading.module.ts,e\9\e9afc947bee1416e634ce90cf28214d555b6a8ef
-\
-,app/src/app/core/material/material.module.ts,1\0\10bec9f84398a9edce05753251d485ae648e74f5
 w
 Gapp/src/app/core/components/snackbar/containers/snackbar.component.html,0\4\0456123c26d7e50a5f825195298e2a61176c63f1
 h

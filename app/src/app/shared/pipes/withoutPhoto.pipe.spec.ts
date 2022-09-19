@@ -1,8 +1,8 @@
-import { SinFotoPipe } from './sin-foto.pipe';
+import {WithoutPhotoPipe} from "./withoutPhoto.pipe";
 
 describe('SinFotoPipe', () => {
   it('create an instance', () => {
-    const pipe = new SinFotoPipe();
+    const pipe = new WithoutPhotoPipe();
     expect(pipe).toBeTruthy();
   });
 });

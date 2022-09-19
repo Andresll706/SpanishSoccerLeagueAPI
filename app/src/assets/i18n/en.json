@@ -1,0 +1,20 @@
+{
+  "header": {
+    "teams": "Teams",
+    "players": "Players"
+  },
+  "home" : {
+    "linksMenus": {
+      "teams": "Teams",
+      "descriptionTeams": "The teams in the Santander league are the most competitive... enjoy the league.",
+      "players": "Players",
+      "descriptionPlayers": "Enjoy our players"
+    }
+  },
+  "language": {
+    "language": "Language",
+    "spanish": "Spanish",
+    "english": "English"
+  }
+}
+

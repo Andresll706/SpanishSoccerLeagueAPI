@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { SinfotoPipe } from '../sin-foto.pipe';
+import { WithoutPhotoPipe } from './pipes/withoutPhoto.pipe';
 import {TranslateModule} from "@ngx-translate/core";
 import { MaterialModule } from "../core/material/material.module";
 
@@ -15,10 +15,10 @@ import { MaterialModule } from "../core/material/material.module";
   exports: [
     MaterialModule,
     RouterModule,
-    SinfotoPipe,
+    WithoutPhotoPipe,
     TranslateModule
   ],
-  declarations: [SinfotoPipe]
+  declarations: [WithoutPhotoPipe]
 })
 export class SharedModule {
 }

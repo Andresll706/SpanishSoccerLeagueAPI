@@ -1,0 +1,20 @@
+{
+  "header": {
+    "teams": "Equipos",
+    "players": "Jugadores"
+  },
+  "home" : {
+    "linksMenus": {
+      "teams": "Equipos",
+      "descriptionTeams": "Los equipos de la liga Santander son los más competitivos... disfruta de la liga.",
+      "players": "Equipos",
+      "descriptionPlayers": "Disfruta de nuestros jugadores"
+    }
+  },
+  "language": {
+    "language": "Idioma",
+    "spanish": "Español",
+    "english": "Inglés"
+  }
+}
+

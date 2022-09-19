@@ -2,6 +2,6 @@
   <img class="card-img-top img-card" src="{{image}}" alt="Card image cap">
   <div class="card-body">
     <a  [routerLink]="['/'+link]"><h2 class="card-title"><strong>{{linkMenu.name | translate}}</strong></h2></a>
-    <p class="card-text">{{linkMenu.description}}</p>
+    <p class="card-text">{{linkMenu.description | translate}}</p>
   </div>
 </div>
