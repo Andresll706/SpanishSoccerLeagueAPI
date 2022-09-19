@@ -13,7 +13,7 @@ export class TeamsService implements OnInit {
 
   public teams:any;
 
-  private readonly URL = 'http://localhost:8000';
+  private readonly URL = 'http://localhost:8000/api';
   private headers = new HttpHeaders();
   private params = new HttpParams();
 
@@ -27,7 +27,7 @@ export class TeamsService implements OnInit {
 
   public getTeams() {
     this.headers = new HttpHeaders({'Accept': 'application/json'});
-    return this.http.get<any>(this.URL+'/teams' , { headers: this.headers } )
+    return this.http.get<TeamInputDto>(this.URL+'/teams' , { headers: this.headers } )
     .pipe(
       catchError((err) => {
           console.log('Error get teams');

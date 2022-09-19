@@ -13,7 +13,7 @@ export class PlayersService implements OnInit {
 
   public players:any;
 
-  private readonly URL = 'http://localhost:8000';
+  private readonly URL = 'http://localhost:8000/api';
   private headers = new HttpHeaders();
   private params = new HttpParams();
 

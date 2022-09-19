@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { Router } from '@angular/router';
+import {PlayersService} from "../../../shared/services/players.service";
+import {PlayersInputDto} from "../../../shared/services/playersInputDto";
 
 @Component({
   selector: 'players',
@@ -14,7 +16,8 @@ export class PlayersComponent implements OnInit {
   players: any;
 
   constructor(protected http: HttpClient,
-              protected router: Router,) {
+              protected router: Router,
+              private playersService: PlayersService) {
     window.scroll({
       top: 0,
       left: 0,
@@ -24,11 +27,11 @@ export class PlayersComponent implements OnInit {
 
   ngOnInit(): void {
 
-    // this.teamApiService.getAll().subscribe((resp) => {
-      //       if (resp) {
-      //         this.teams = resp;
-      //       }
-      //       this.loading = false;
-      //     }
+    this.playersService.getPlayers().subscribe((resp) => {
+      if (resp) {
+        this.players = resp;
+      }
+      this.loading = false;
+    });
   }
 }

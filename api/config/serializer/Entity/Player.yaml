@@ -10,5 +10,3 @@ App\Entity\Player:
       groups: ['team']
     image:
       groups: ['team']
-    team:
-      groups: ['team']

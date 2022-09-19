@@ -15,6 +15,10 @@
     "language": "Idioma",
     "spanish": "Español",
     "english": "Inglés"
+  },
+  "players": {
+    "age": "Edad",
+    "position": "Posición"
   }
 }
 

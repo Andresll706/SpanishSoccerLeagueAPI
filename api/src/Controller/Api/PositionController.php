@@ -10,7 +10,6 @@ use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\View\View;
-use JMS\Serializer\SerializerBuilder;
 use League\Flysystem\FilesystemException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,9 +24,9 @@ class PositionController extends AbstractFOSRestController
      * @Rest\Get(path="/api/positions", name="get_positions")
      * @Rest\View(serializerGroups={"team"},serializerEnableMaxDepthChecks=true)
      */
-    public function getAll(PositionRepository $repository): string
+    public function getAll(PositionRepository $repository): array
     {
-        return $this->serialize($repository->findAll());
+        return $repository->findAll();
     }
 
     /**
@@ -35,7 +34,7 @@ class PositionController extends AbstractFOSRestController
      * @Rest\Get(path="/api/position/{id}", requirements={"id"="\d+"}, name="get_position")
      * @Rest\View(serializerGroups={"team"},serializerEnableMaxDepthChecks=true)
      */
-    public function get(PositionRepository $repository, int $id): View | string
+    public function get(PositionRepository $repository, int $id): View | Position
     {
         $position = $repository->find($id);
 
@@ -43,7 +42,7 @@ class PositionController extends AbstractFOSRestController
             return View::create(self::POSITION_NOT_FOUND, Response::HTTP_BAD_REQUEST);
         }
 
-        return $this->serialize($position);
+        return $position;
     }
 
 
@@ -60,7 +59,7 @@ class PositionController extends AbstractFOSRestController
         [$position, $error] = ($positionFormProcessor)($position, $request);
 
         $statusCode = $position ? Response::HTTP_CREATED : Response::HTTP_BAD_REQUEST;
-        $data = $position ? $this->serialize($position) : $error;
+        $data = $position ?? $error;
         return View::create($data, $statusCode);
     }
 
@@ -81,7 +80,7 @@ class PositionController extends AbstractFOSRestController
         $data = json_decode($request->getContent(), true);
         $position =  $positionEntity->patch($data, $fileUploader);
 
-        return View::create($this->serialize($position), Response::HTTP_OK);
+        return View::create($position, Response::HTTP_OK);
     }
 
 
@@ -106,11 +105,5 @@ class PositionController extends AbstractFOSRestController
         $entityManager->flush();
 
         return View::create(self::POSITION_DELETED, Response::HTTP_NO_CONTENT);
-    }
-
-    private function serialize($data): string
-    {
-        $serializer = SerializerBuilder::create()->build();
-        return $serializer->serialize($data, 'json');
     }
 }

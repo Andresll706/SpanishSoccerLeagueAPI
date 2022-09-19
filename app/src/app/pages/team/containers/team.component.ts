@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
+import {TeamsService} from "../../../shared/services/teams.service";
 
 @Component({
   selector: 'team',
@@ -10,28 +11,30 @@ import {ActivatedRoute, Router} from "@angular/router";
 export class TeamComponent implements OnInit {
   loading = true;
   team: any;
-  teamId: number | undefined;
-  image: any = '';
+  teamId: any;
   constructor(
     protected activatedRoute: ActivatedRoute,
-    private router: Router
+    private teamsService: TeamsService
   ) {
-    this.team={};
+
   }
 
   ngOnInit(): void {
-    this.activatedRoute.queryParams.subscribe(parameters => {
+    this.activatedRoute.params.subscribe(parameters => {
       this.teamId = parameters['id'] as number;
-      // if (this.teamId) {
-      //   this.teamApiService.get(this.teamId).subscribe((resp) => {
-      //       if (resp) {
-      //         this.team = resp;
-      //         this.image = url + this.team.image;
-      //       }
-      //       this.loading = false;
-      //     }
-      //   );
-      // }
+      console.log(parameters)
+      console.log(this.teamId);
+      if (this.teamId) {
+        console.log(this.teamId);
+        this.teamsService.getTeam(this.teamId).subscribe((resp) => {
+            console.log(resp);
+            if (resp) {
+              this.team = resp;
+            }
+            this.loading = false;
+          }
+        );
+      }
     });
 
   }

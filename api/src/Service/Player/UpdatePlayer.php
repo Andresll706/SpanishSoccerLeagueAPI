@@ -42,7 +42,13 @@ class UpdatePlayer {
 
         $player = $this->updateTeam($data, $player);
 
-        return $this->updatePosition($data, $player);
+        $player =  $this->updatePosition($data, $player);
+
+        $this->entityManager->persist($player);
+        $this->entityManager->flush();
+        $this->entityManager->refresh($player);
+
+        return $player;
     }
 
     /**
@@ -138,6 +144,8 @@ class UpdatePlayer {
                     $this->entityManager->persist($newPosition);
                     $this->entityManager->flush();
                     $player->setPosition($newPosition);
+                } else {
+                    $player->setPosition($positionInRepository);
                 }
             }
         }

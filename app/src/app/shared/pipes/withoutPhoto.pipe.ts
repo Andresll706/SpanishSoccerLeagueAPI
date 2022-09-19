@@ -6,7 +6,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 export class WithoutPhotoPipe implements PipeTransform {
   transform(image : any): any {
-    let noimage = 'assets/img/noimage.png';
+    let noimage = 'assets/images/noimage.png';
     if(!image){
       return noimage;
     }else{

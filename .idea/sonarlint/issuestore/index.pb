@@ -1,21 +1,13 @@
 
 Z
 *api/postman/Local.postman_environment.json,d\5\d5b979d47448ec90dfd56cdac04c0a857b92095c
-Z
-*api/config/serializer/Entity/Position.yaml,7\2\72b7c2922b2a95aff7866a330de0078909fb1a0c
 =
 api/.env.test,2\3\2376dde4912a9ea8794c120647ec9dfbb7db2e7d
-X
-(api/config/serializer/Entity/Player.yaml,a\b\abf0e5878145f6df4a7f0bf969d501cb9d427d80
-W
-'api/config/packages/jms_serializer.yaml,5\9\594b128ec8eecf3d201ee786ad6ad2d8c8a89996
 W
 'api/postman/Api.postman_collection.json,2\f\2fed0b3dfc0b36672bc7347ec088f2aca8bb843a
 :
 
 .gitignore,a\5\a5cc2925ca8258af241be7e5b0381edf30266302
-V
-&api/config/serializer/Entity/Team.yaml,4\b\4bfcac4bfdf8b7ab4a9787791f50b41623b40d04
 V
 &api/config/packages/test/doctrine.yaml,8\8\88bede60e01e0ac0560315bbbce964ef26ec479d
 U
@@ -102,8 +94,6 @@ Y
 )api/src/Service/PositionFormProcessor.php,7\5\75a47506402a7670f3eed16de6b00a1d5527b30c
 V
 &api/src/Form/Type/PositionFormType.php,f\b\fb5c5541f06995a44c81f2cd7bc8636c1d88b13c
-Y
-)api/src/Serializer/PositionNormalizer.php,b\2\b2245e26f7f7edb4231ac348c25e6205fc28ede1
 F
 api/config/preload.php,3\5\35659a4137d9aeabcbf309e543c1aa4f715b0731
 =
@@ -112,18 +102,12 @@ G
 api/src/Entity/Team.php,c\b\cb956962b461e15f6da8c768989eed6486f85cb6
 N
 api/src/Form/Model/TeamDto.php,d\7\d7e59d4e157e7dcf40f61ce291333a743b548529
-U
-%api/src/Service/TeamFormProcessor.php,b\1\b1d6c1ef47010e3a6e569fee3e134fc8c0fc463b
 R
 "api/src/Form/Type/TeamFormType.php,2\a\2acc2ea8565342bba2bf660630e0bddaed17d482
 U
 %api/src/Repository/TeamRepository.php,a\5\a511b8c80817f582cd10c1bdc93272374cad82e4
 ?
 app/src/test.ts,d\1\d1f7f844adfbbd13f3418725cdc71372a2c5d3a0
-W
-'api/src/Service/Player/UpdatePlayer.php,e\7\e7f1875f7755572d3b334698b06e69010d659370
-S
-#api/src/Service/Team/UpdateTeam.php,e\8\e8ae54fb0f1faceeff65005c66255f4ea68f1d25
 g
 7app/src/app/pages/boats/containers/boats.component.scss,c\0\c03b817b0a65c0fe3a7649463804609b7586d3ba
 w

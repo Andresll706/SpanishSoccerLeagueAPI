@@ -11,7 +11,6 @@ use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\View\View;
-use JMS\Serializer\SerializerBuilder;
 use League\Flysystem\FilesystemException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -26,10 +25,9 @@ class PlayerController extends AbstractFOSRestController
      * @Rest\Get(path="/api/players", name="get_players")
      * @Rest\View(serializerGroups={"team"},serializerEnableMaxDepthChecks=true)
      */
-    public function getAll(PlayerRepository $repository): string
+    public function getAll(PlayerRepository $repository): array
     {
-        $players = $repository->findAll();
-        return $this->serialize($players);
+        return $repository->findAll();
     }
 
     /**
@@ -37,7 +35,7 @@ class PlayerController extends AbstractFOSRestController
      * @Rest\Get(path="/api/player/{id}", requirements={"id"="\d+"}, name="get_player")
      * @Rest\View(serializerGroups={"team"},serializerEnableMaxDepthChecks=true)
      */
-    public function get(PlayerRepository $repository, int $id): View | string
+    public function get(PlayerRepository $repository, int $id): View | Player
     {
         $player = $repository->find($id);
 
@@ -45,7 +43,7 @@ class PlayerController extends AbstractFOSRestController
             return View::create(self::PLAYER_NOT_FOUND, Response::HTTP_BAD_REQUEST);
         }
 
-        return $this->serialize($player);
+        return $player;
     }
 
     /**
@@ -61,7 +59,7 @@ class PlayerController extends AbstractFOSRestController
         [$player, $error] = ($playerFormProcessor)($player, $request);
 
         $statusCode = $player ? Response::HTTP_CREATED : Response::HTTP_BAD_REQUEST;
-        $data = $player ? $this->serialize($player) : $error;
+        $data = $player ?? $error;
         return View::create($data, $statusCode);
     }
 
@@ -83,7 +81,7 @@ class PlayerController extends AbstractFOSRestController
         $data = json_decode($request->getContent(), true);
         $player =  ($updatePlayer)($playerEntity, $data);
 
-        return View::create($this->serialize($player), Response::HTTP_OK);
+        return View::create($player, Response::HTTP_OK);
     }
 
 
@@ -109,11 +107,4 @@ class PlayerController extends AbstractFOSRestController
 
         return View::create(self::PLAYER_DELETED, Response::HTTP_NO_CONTENT);
     }
-
-    private function serialize($data): string
-    {
-        $serializer = SerializerBuilder::create()->build();
-        return $serializer->serialize($data, 'json');
-    }
-
 }
