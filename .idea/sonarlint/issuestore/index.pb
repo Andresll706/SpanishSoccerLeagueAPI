@@ -1,6 +1,4 @@
 
-A
-api/composer.json,9\d\9de1c174880f36684a19378c90be1b5685aa2e95
 Z
 *api/postman/Local.postman_environment.json,d\5\d5b979d47448ec90dfd56cdac04c0a857b92095c
 Z
@@ -28,22 +26,14 @@ R
 "api/config/packages/framework.yaml,b\f\bfbb689a40185b796ea0ce0198d274bfcd06bcf2
 Q
 !api/config/validator/TeamDto.yaml,7\8\7824d20c3ab7f5891b188cb509ac444adb8f2968
-Q
-!api/config/packages/doctrine.yaml,8\a\8aa27b3a17fb1eed0e77af57cfedacc346c3a7de
 R
 "api/config/packages/flysystem.yaml,b\0\b06940a43311d269b5b1efcb3654ea06fad9e525
 R
 "api/config/packages/validator.yaml,e\9\e92b7a3d6e150787bebebaa26504b4e9f3d549bb
-Q
-!api/config/packages/fos_rest.yaml,c\9\c97fcdf46ca5cb66125d942fd9c969e7b7c2b5a1
 P
  api/config/packages/monolog.yaml,0\b\0b5a3239df4481990c6a7a1b14bdbb0b8b172105
-N
-api/config/packages/cache.yaml,8\d\8d10aa05ffc15bcff0376cd48a81538a34b2f401
 P
  api/config/routes/framework.yaml,1\b\1be2d76af8cde92ab84b45ac632040de7ff1e24e
-P
- api/config/packages/routing.yaml,f\d\fd284c4bad679333e300e1b84e531113f30ace0f
 M
 api/src/Controller/.gitignore,b\6\b622d573f00f1ddc7b20733e86d10d9d34a164a5
 M
@@ -54,8 +44,6 @@ J
 api/config/routes/api.yaml,d\3\d3ad77118e6e2296637f07b4d29077145eb15f70
 K
 app/.vscode/extensions.json,1\7\17f51f37f05179eef34e81bafba8d6c40c0bc220
-L
-api/templates/base.html.twig,1\5\152357bedb3950dbd4dc0ec13540bee72b49fe1e
 H
 api/config/services.yaml,8\5\8510f71d4931ba28425ad7898c9e13cc2e92f70f
 G
@@ -80,18 +68,10 @@ A
 app/.editorconfig,c\4\c4ef0ff77f4b486b0fc5df3f6141dc6cd07e31e3
 F
 app/tsconfig.spec.json,2\4\24d87935c8e20ce71a1a1ea720f7251293a9cb20
-A
-api/composer.lock,f\3\f33e6d6c1619482eafcbf94bfe08f30b0a8a91e7
 >
 api/.gitignore,2\b\2bda069e2c88cd81866580088f3a7bec6b54264c
-[
-+api/config/packages/dev/jms_serializer.yaml,a\9\a9fd9045d9203b0e220b5feb6c65ff28f5d70952
 _
 /api/config/packages/sensio_framework_extra.yaml,1\e\1ec28b30c54b353e409ec0b98e8b2e7c465dfe6f
-\
-,api/config/packages/prod/jms_serializer.yaml,6\1\61c6a89f6b712cb169f4cc5dc436e80953579195
-@
-api/symfony.lock,f\c\fcc0918dea94a93de12a43769fa9c3da235a17ca
 \
 ,api/config/packages/doctrine_migrations.yaml,3\d\3dcef207b330d7a5d90968e6bb2d3613e8a3b55e
 >
@@ -100,8 +80,6 @@ Q
 !app/src/app/app.component.spec.ts,7\a\7a59f3955ac25337ce976c87f2ee31747232ab2b
 G
 api/tests/bootstrap.php,2\2\2256031698abfdbf5347a339be466eafe2dc8c6a
-F
-api/config/bundles.php,0\e\0eb5afc03326f859b6ef61755e41ab089faf9877
 ?
 api/bin/console,0\c\0ce1ef2559c077597fc13b98f14096fdd08e4fb4
 X

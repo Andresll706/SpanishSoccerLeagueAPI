@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { Router } from '@angular/router';
+import {TeamsService} from "../../../shared/services/teams.service";
 
 @Component({
   selector: 'teams',
@@ -14,7 +15,8 @@ export class TeamsComponent implements OnInit {
   teams: any;
 
   constructor(protected http: HttpClient,
-              protected router: Router,) {
+              protected router: Router,
+              private teamsService: TeamsService) {
     window.scroll({
       top: 0,
       left: 0,
@@ -23,12 +25,11 @@ export class TeamsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-    // this.teamApiService.getAll().subscribe((resp) => {
-      //       if (resp) {
-      //         this.teams = resp;
-      //       }
-      //       this.loading = false;
-      //     }
+    this.teamsService.getTeams().subscribe((resp) => {
+      if (resp) {
+        this.teams = resp;
+      }
+      this.loading = false;
+    });
   }
 }
